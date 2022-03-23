@@ -4,11 +4,25 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Shop Homepage - Start Bootstrap Template</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <meta name="author" content="Daniel Lobato" />
+    <!-- Meta tag -->
+    <meta name="description"
+        content="Axis3D Mendoza es una empresa que se encarga de la impresion de diseños en 3d y de la creacion de diseños 3d">
+    <!-- KW -->
+    <meta name="keywords" content="3dprint, 3D, Impresora, diseño, Diseño3d, cura">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Open graph -->
+    <meta property="og:title" content="Axis3D">
+    <meta property="og:site_name" content="Axis3D">
+    <meta property="og:url" content="https://www.instagram.com/axis3dmendoza/">
+    <meta property="og:description"
+        content="Somos un emprendimiento joven y con mucho entusiasmo.Escribinos y llevate tu idea impresa.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://instagram.fmdz5-1.fna.fbcdn.net/v/t51.2885-19/128159390_786652781931599_7975883691145147433_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fmdz5-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=yzwY5C5RPtwAX9q80rU&edm=ALbqBD0BAAAA&ccb=7-4&oh=00_AT-bTZwyFeJTwHt2x3WSkYZH_H1hcapBaK0ll8pahA0H7Q&oe=6241BCE9&_nc_sid=9a90d6">
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <title>Axis 3d Mendoza</title>
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -17,51 +31,53 @@
 
 <body>
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">Start Bootstrap</a>
+            <a class="navbar-brand" href="index.html"><img src="images/axis3d.jpg" alt="LogoAxis3d" width="100" height="60" class="d-inline-block align-text-top"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Nosotros</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
+                            <li><a class="dropdown-item" href="#!">Todos Productos</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            <li><a class="dropdown-item" href="#!">Populares</a></li>
+                            <li><a class="dropdown-item" href="#!">Nuevos</a></li>
                         </ul>
                     </li>
-                </ul>                
+                </ul>
                 <form class="d-flex" action="#">
                     <input class="form-control mr-sm-2" id="producto-buscado" type="text" placeholder="Buscar">
-                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="buscarProducto()">Buscar</button>                  
+                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="buscarProducto()">Buscar</button>
                 </form>
 
                 <form class="d-flex mx-auto">
                     <button class="btn btn-outline-dark" type="submit">
                         <i class="bi-cart-fill me-1"></i>
                         Carrito
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        <!-- Aca Agregamos ID cantidad-prod para poder poner el valor segun lo que vayamos elijiendo en la pagina -->
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cantidad-prod">
+                            0
+                        </span>
                     </button>
                 </form>
             </div>
         </div>
     </nav>
     <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Shop in style</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-            </div>
+    <header>
+        <div class="overlay">
+            <h1>Axis 3D</h1>
+            <h3>Impresiones en 3D en Mendoza</h3>            
+            <br>
         </div>
     </header>
     <!-- Section-->
@@ -69,10 +85,10 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div id="listado-productos"
                 class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center listado-productos">
-            
-            
+
+
                 <!-- ELEMENTOS AGREGADOS VIA JS -->
-            
+
             </div>
     </section>
     <!-- Footer-->

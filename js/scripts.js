@@ -1,7 +1,3 @@
-const agregarAlCarrito = (producto) => {
-    carrito.push(producto);
-};
-
 const carrito = [];
 
 const productos = [
@@ -12,6 +8,29 @@ const productos = [
     { id: 5, titulo: "pantalon rebook", precio: 500, categoria: "ropa deportiva", stock: 0, imagen: 'https://www.elalmanaque.com/Ene14/fotos/Teclado.jpg' },
     { id: 6, titulo: "short niky", precio: 450, categoria: "ropa deportiva", stock: 12, imagen: '' },
 ];
+
+const agregarAlCarrito = (idProducto) => {
+    const valorDeCantidad = document.getElementById(`cantidad-${idProducto}`).value;
+    console.log(valorDeCantidad);
+    //buscando el prodcuto agregar
+    const productoAgregado = productos.find(producto => producto.id === idProducto);
+    productoAgregado.cantidad = valorDeCantidad;
+    console.log(productoAgregado);
+    console.log(productoAgregado.cantidad);
+    //agregando al carrito
+    carrito.push(productoAgregado);
+    //actualizando el storage del carrito
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    //actualizando el html
+    // document.getElementById("cantidad-prod").innerHTML = "$" + productoAgregado.precio * productoAgregado.cantidad;
+    document.getElementById("cantidad-prod").innerHTML = carrito.length;
+    // Actualizar stock
+    // Volver a generar las cards
+};
+
+
+
 
 generarCards(productos);
 //<img class="card-img-top" src="${elementoDelArray.imagen === '' ? 'https://aramar.com/wp-content/uploads/2017/05/aramar-suministros-para-el-vidrio-cristal-sin-imagen-disponible.jpg' : elementoDelArray.imagen}" alt="..." />
@@ -63,13 +82,24 @@ function generarCards(productosAMostrar) {
                 <div class="text-center">
                     <!-- Product name-->
                     <h5 class="fw-bolder">${elementoDelArray.titulo}</h5>
-                    <!-- Product price--> $
-                    ${elementoDelArray.precio}
+                    <!-- Product price--> 
+             <div class="input-group">
+                 <input class="form-control font-weight-bold" value="1" min="1" id="cantidad-${elementoDelArray.id}" type="number" placeholder="cantidad">
+                <div class="input-group-append">
+                    <span class="input-group-text font-weight-bold">$${elementoDelArray.precio}</span>
+                </div>
+            </div>              
+
                 </div>
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                <div class="text-center"><button 
+                onclick="agregarAlCarrito(${elementoDelArray.id})"
+                class="btn btn-outline-dark mt-auto" href="#">
+                Agregar al Carrito
+                 </button>
+            </div>
             </div>
         </div>
     </div>`;
@@ -91,6 +121,16 @@ function suscribirseAlNewsletter() {
     alert("Te Suscribiste correctamente");
     location.reload();
 }
+
+/* var inicio = 1; //se inicializa una variable en 0
+
+function aumentar() { // se crean la funcion y se agrega al evento onclick en en la etiqueta button con id aumentar
+
+    var cantidad = document.getElementById('cantidad').value = ++inicio; //se obtiene el valor del input, y se incrementa en 1 el valor que tenga.
+
+    const valorDeCantidad1 = document.getElementById(`cantidad-${idProducto}`).value;
+    console.log(valorDeCantidad1);
+} */
 
 
 function buscarProducto() {

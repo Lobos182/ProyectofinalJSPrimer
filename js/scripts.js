@@ -12,17 +12,17 @@ const productos = [
 ];
 
 const agregarAlCarrito = (idProducto) => {
-    const valorDeCantidad = document.getElementById(`cantidad-${idProducto}`).value;
-    console.log(valorDeCantidad);
+    const valorDeCantidad = document.getElementById(`cantidad-${idProducto}`).value;    
+
     //buscando el prodcuto agregar
     const productoAgregado = productos.find(producto => producto.id === idProducto);
     productoAgregado.cantidad = valorDeCantidad;
-    console.log(productoAgregado);
-    console.log(productoAgregado.cantidad);
+       
     //agregando al carrito
     carrito.push(productoAgregado);
+
     //actualizando el storage del carrito
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carritoCompra", JSON.stringify(carrito));
 
     //actualizando el html
     // document.getElementById("cantidad-prod").innerHTML = "$" + productoAgregado.precio * productoAgregado.cantidad;

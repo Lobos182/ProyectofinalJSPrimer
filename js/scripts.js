@@ -1,40 +1,55 @@
-const carrito = [];
-
 const productos = [
     { id: 1, titulo: "Dinosaurio Flexible", precio: 900, categoria: "Animales", stock: 1, imagen: 'images/productos/dino1.jpg', imagen2: 'images/productos/dino2.jpg', imagen3: 'images/productos/dino3.jpg' },
     { id: 2, titulo: "Estrella", precio: 850, categoria: "accesorios", stock: 10, imagen: 'images/productos/estrella1.jpg', imagen2: 'images/productos/estrella2.jpg', imagen3: 'images/productos/estrella3.jpg' },
     { id: 3, titulo: "Pokebola", precio: 700, categoria: "organizadores", stock: 5, imagen: 'images/productos/pokebola1.jpg', imagen2: 'images/productos/pokebola2.jpg', imagen3: 'images/productos/pokebola3.jpg' },
-    { id: 4, titulo: "Pulpo flexible", precio: 600, categoria: "animales", stock: 56, imagen: 'images/productos/pulpo1.jpg', imagen2: 'images/productos/pulpo2.jpg' , imagen3: 'images/productos/pulpo3.jpg'  },
+    { id: 4, titulo: "Pulpo flexible", precio: 600, categoria: "animales", stock: 56, imagen: 'images/productos/pulpo1.jpg', imagen2: 'images/productos/pulpo2.jpg', imagen3: 'images/productos/pulpo3.jpg' },
     { id: 5, titulo: "Soporte Celular/Tablet", precio: 500, categoria: "accesorios", stock: 0, imagen: 'images/productos/soportecelu1.jpg', imagen2: 'images/productos/soportecelu2.jpg', imagen3: 'images/productos/soportecelu3.jpg' },
     { id: 6, titulo: "Darth Vader", precio: 450, categoria: "muñecos", stock: 12, imagen: 'images/productos/vader1.jpg', imagen2: 'images/productos/vader2.jpg', imagen3: 'images/productos/vader3.jpg' },
-    { id: 7, titulo: "Otro", precio: 450, categoria: "muñecos", stock:0, imagen: '', imagen2: '', imagen3: '' },
-    { id: 8, titulo: "Otro", precio: 450, categoria: "muñecos", stock:0, imagen: '', imagen2: '', imagen3: '' },
+    { id: 7, titulo: "Otro", precio: 450, categoria: "muñecos", stock: 0, imagen: '', imagen2: '', imagen3: '' },
+    { id: 8, titulo: "Otro", precio: 450, categoria: "muñecos", stock: 0, imagen: '', imagen2: '', imagen3: '' },
 ];
 
 const agregarAlCarrito = (idProducto) => {
-    const valorDeCantidad = document.getElementById(`cantidad-${idProducto}`).value;    
+    const valorDeCantidad = document.getElementById(`cantidad-${idProducto}`).value;
 
     //buscando el prodcuto agregar
     const productoAgregado = productos.find(producto => producto.id === idProducto);
     productoAgregado.cantidad = valorDeCantidad;
-       
+
     //agregando al carrito
     carrito.push(productoAgregado);
 
     //actualizando el storage del carrito
-    localStorage.setItem("carritoCompra", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 
     //actualizando el html
     // document.getElementById("cantidad-prod").innerHTML = "$" + productoAgregado.precio * productoAgregado.cantidad;
     document.getElementById("cantidad-prod").innerHTML = carrito.length;
     // Actualizar stock
     // Volver a generar las cards
+
+    Toastify({
+        text: `Agregaste ${productoAgregado.titulo}`,
+        duration: 3000,
+        newWindow: true,
+        close: false,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function () { } // Callback after click
+    }).showToast();
+
+    
 };
 
-
+mostrarCarritoEnModal(carrito);
 
 
 generarCards(productos);
+
 function generarCards(productosAMostrar) {
     let acumuladorDeCards = ``;
     productosAMostrar.forEach((elementoDelArray) => {
@@ -116,13 +131,62 @@ function mostrarCardsEnElHTML(cards) {
     document.getElementById("listado-productos").innerHTML = cards;
 };
 
+function mostrarCarritoEnModal(tabla) {
+    document.getElementById("tabla-modal").innerHTML = tabla;
+};
+
+function mostrarPopCarrito(llenarTabla) {
+    let tablaCarrito = ``;
+    llenarTabla.forEach((elementoDelArray) => {
+        tablaCarrito += `
+        <div class="col mb-5">
+        <div class="card" style="width: 18rem;">                
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <h5 class="fw-bolder">${elementoDelArray.titulo}</h5>
+                    <!-- Product price--> 
+             <div class="input-group">
+                 <input ${elementoDelArray.stock > 0 ? '' : 'disabled'} class="form-control font-weight-bold" value="1" min="1" id="cantidad-${elementoDelArray.id}" type="number" placeholder="cantidad">
+                <div class="input-group-append">
+                    <span class="input-group-text font-weight-bold">$${elementoDelArray.precio}</span>
+                </div>
+            </div>              
+
+                </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><button 
+                onclick="agregarAlCarrito(${elementoDelArray.id})"
+                class="btn btn-outline-dark mt-auto btn-info
+                ${elementoDelArray.stock > 0 ? '' : 'disabled'}"  href="#">
+                Agregar al Carrito
+                 </button>
+            </div>
+            </div>
+        </div>
+    </div>
+        `
+    });
+    mostrarCarritoEnModal(tablaCarrito);
+
+};
+
 
 
 function suscribirseAlNewsletter() {
     const email = document.getElementById("email").value;
     console.log(email);
-    alert("Te Suscribiste correctamente");
-    location.reload();
+    swal({
+        title: `${email} te suscrbiste correctamente`,
+        text: "MUCHAS GRACIAS!!",
+        icon: "success",
+        button: "Cerrar",
+    })
+        .then((value) => { location.reload() });
+
 }
 
 /* var inicio = 1; //se inicializa una variable en 0
@@ -143,6 +207,8 @@ function buscarProducto() {
         return producto.titulo.toUpperCase().match(nombreProductoBuscado);
     });
 
-    console.log(productosEncontrados);
+    //console.log(productosEncontrados);
     generarCards(productosEncontrados);
 }
+
+

@@ -42,11 +42,8 @@ const agregarAlCarrito = (idProducto) => {
         onClick: function () { } // Callback after click
     }).showToast();
 
-    
+
 };
-
-mostrarCarritoEnModal(carrito);
-
 
 generarCards(productos);
 
@@ -131,47 +128,49 @@ function mostrarCardsEnElHTML(cards) {
     document.getElementById("listado-productos").innerHTML = cards;
 };
 
-function mostrarCarritoEnModal(tabla) {
-    document.getElementById("tabla-modal").innerHTML = tabla;
-};
+const miCarritoSinDuplicados = carrito.reduce((acumulador, valorActual) => {
+    const elementoYaExiste = acumulador.find(elemento => elemento.id === valorActual.id);
+    if (elementoYaExiste) {
+        return acumulador.map((elemento) => {
+            if (elemento.id === valorActual.id) {
+                return {
+                    ...elemento,
+                    cantidad: elemento.cantidad + valorActual.cantidad
 
-function mostrarPopCarrito(llenarTabla) {
-    let tablaCarrito = ``;
-    llenarTabla.forEach((elementoDelArray) => {
-        tablaCarrito += `
-        <div class="col mb-5">
-        <div class="card" style="width: 18rem;">                
-            <!-- Product details-->
-            <div class="card-body p-4">
-                <div class="text-center">
-                    <!-- Product name-->
-                    <h5 class="fw-bolder">${elementoDelArray.titulo}</h5>
-                    <!-- Product price--> 
-             <div class="input-group">
-                 <input ${elementoDelArray.stock > 0 ? '' : 'disabled'} class="form-control font-weight-bold" value="1" min="1" id="cantidad-${elementoDelArray.id}" type="number" placeholder="cantidad">
-                <div class="input-group-append">
-                    <span class="input-group-text font-weight-bold">$${elementoDelArray.precio}</span>
-                </div>
-            </div>              
+                }
+            }
+            return elemento;
+        });
+    }
 
-                </div>
-            </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><button 
-                onclick="agregarAlCarrito(${elementoDelArray.id})"
-                class="btn btn-outline-dark mt-auto btn-info
-                ${elementoDelArray.stock > 0 ? '' : 'disabled'}"  href="#">
-                Agregar al Carrito
-                 </button>
-            </div>
-            </div>
-        </div>
-    </div>
-        `
+    return [...acumulador, valorActual];
+}, []);
+
+for (let i = 0; i < miCarritoSinDuplicados.length; i++) {
+    miCarritoSinDuplicados[i].precioT = miCarritoSinDuplicados[i].precio * miCarritoSinDuplicados[i].cantidad;
+}
+
+
+generarTablaCarrito(miCarritoSinDuplicados);
+
+
+function generarTablaCarrito(CarritoAMostrar) {
+    let acumuladorDeTabla = ``;
+    CarritoAMostrar.forEach((carrito) => {
+        acumuladorDeTabla += ` <tr>
+        <th scope="row">${carrito.id}</th>
+        <td>${carrito.titulo}</td>
+        <td>${carrito.precio}</td>
+        <td>${carrito.cantidad}</td>
+        <td>${carrito.precioT}</td>
+      </tr>  `;
     });
-    mostrarCarritoEnModal(tablaCarrito);
+    mostrarTablaEnModal(acumuladorDeTabla);
 
+}
+
+function mostrarTablaEnModal(tablaCarrito) {
+    document.getElementById("tabla-carrito").innerHTML = tablaCarrito;
 };
 
 

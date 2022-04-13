@@ -1,0 +1,84 @@
+{
+    "productos": [
+        {
+            "id": 1,
+            "titulo": "Dinosaurio Flexible",
+            "precio": 900,
+            "categoria": "Animales",
+            "stock": 1,
+            "imagen": "images/productos/dino1.jpg",
+            "imagen2": "images/productos/dino2.jpg",
+            "imagen3": "images/productos/dino3.jpg"
+        },
+        {
+            "id": 2,
+            "titulo": "Estrella",
+            "precio": 850,
+            "categoria": "accesorios",
+            "stock": 10,
+            "imagen": "images/productos/estrella1.jpg",
+            "imagen2":"images/productos/estrella2.jpg",
+            "imagen3": "images/productos/estrella3.jpg"
+        },
+        {
+            "id": 3,
+            "titulo": "Pokebola",
+            "precio": 700,
+            "categoria": "organizadores",
+            "stock": 5,
+            "imagen": "images/productos/pokebola1.jpg",
+            "imagen2": "images/productos/pokebola2.jpg",
+            "imagen3": "images/productos/pokebola3.jpg"
+        },
+        {
+            "id": 4,
+            "titulo": "Pulpo flexible",
+            "precio": 600,
+            "categoria": "animales",
+            "stock": 56,
+            "imagen": "images/productos/pulpo1.jpg",
+            "imagen2": "images/productos/pulpo2.jpg",
+            "imagen3": "images/productos/pulpo3.jpg"
+        },
+        {
+            "id": 5,
+            "titulo": "Soporte Celular/Tablet",
+            "precio": 500,
+            "categoria": "accesorios",
+            "stock": 0,
+            "imagen": "images/productos/soportecelu1.jpg",
+            "imagen2": "images/productos/soportecelu2.jpg",
+            "imagen3": "images/productos/soportecelu3.jpg"
+        },
+        {
+            "id": 6,
+            "titulo": "Darth Vader",
+            "precio": 450,
+            "categoria": "muñecos",
+            "stock": 12,
+            "imagen": "images/productos/vader1.jpg",
+            "imagen2": "images/productos/vader2.jpg",
+            "imagen3": "images/productos/vader3.jpg"
+        },
+        {
+            "id": 7,
+            "titulo": "Otro",
+            "precio": 450,
+            "categoria": "muñecos",
+            "stock": 0,
+            "imagen": "",
+            "imagen2": "",
+            "imagen3": ""
+        },
+        {
+            "id": 8,
+            "titulo": "Otro",
+            "precio": 450,
+            "categoria": "muñecos",
+            "stock": 0,
+            "imagen": "",
+            "imagen2": "",
+            "imagen3": ""
+        }
+    ]
+}

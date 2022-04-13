@@ -10,6 +10,7 @@
 // ];
 
 
+
 const agregarAlCarrito = (idProducto) => {
     const valorDeCantidad = document.getElementById(`cantidad-${idProducto}`).value;
 

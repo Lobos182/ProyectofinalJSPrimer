@@ -1,13 +1,13 @@
-// const productos = [
-//     { id: 1, titulo: "Dinosaurio Flexible", precio: 900, categoria: "Animales", stock: 1, imagen: 'images/productos/dino1.jpg', imagen2: 'images/productos/dino2.jpg', imagen3: 'images/productos/dino3.jpg' },
-//     { id: 2, titulo: "Estrella", precio: 850, categoria: "accesorios", stock: 10, imagen: 'images/productos/estrella1.jpg', imagen2: 'images/productos/estrella2.jpg', imagen3: 'images/productos/estrella3.jpg' },
-//     { id: 3, titulo: "Pokebola", precio: 700, categoria: "organizadores", stock: 5, imagen: 'images/productos/pokebola1.jpg', imagen2: 'images/productos/pokebola2.jpg', imagen3: 'images/productos/pokebola3.jpg' },
-//     { id: 4, titulo: "Pulpo flexible", precio: 600, categoria: "animales", stock: 56, imagen: 'images/productos/pulpo1.jpg', imagen2: 'images/productos/pulpo2.jpg', imagen3: 'images/productos/pulpo3.jpg' },
-//     { id: 5, titulo: "Soporte Celular/Tablet", precio: 500, categoria: "accesorios", stock: 0, imagen: 'images/productos/soportecelu1.jpg', imagen2: 'images/productos/soportecelu2.jpg', imagen3: 'images/productos/soportecelu3.jpg' },
-//     { id: 6, titulo: "Darth Vader", precio: 450, categoria: "muñecos", stock: 12, imagen: 'images/productos/vader1.jpg', imagen2: 'images/productos/vader2.jpg', imagen3: 'images/productos/vader3.jpg' },
-//     { id: 7, titulo: "Otro", precio: 450, categoria: "muñecos", stock: 0, imagen: '', imagen2: '', imagen3: '' },
-//     { id: 8, titulo: "Otro", precio: 450, categoria: "muñecos", stock: 0, imagen: '', imagen2: '', imagen3: '' },
-// ];
+const productos = [
+    { id: 1, titulo: "Dinosaurio Flexible", precio: 900, cantidad: 0, categoria: "Animales", stock: 1, imagen: 'images/productos/dino1.jpg', imagen2: 'images/productos/dino2.jpg', imagen3: 'images/productos/dino3.jpg' },
+    { id: 2, titulo: "Estrella", precio: 850, cantidad: 0, categoria: "accesorios", stock: 10, imagen: 'images/productos/estrella1.jpg', imagen2: 'images/productos/estrella2.jpg', imagen3: 'images/productos/estrella3.jpg' },
+    { id: 3, titulo: "Pokebola", precio: 700, cantidad: 0, categoria: "organizadores", stock: 5, imagen: 'images/productos/pokebola1.jpg', imagen2: 'images/productos/pokebola2.jpg', imagen3: 'images/productos/pokebola3.jpg' },
+    { id: 4, titulo: "Pulpo flexible", precio: 600, cantidad: 0, categoria: "animales", stock: 56, imagen: 'images/productos/pulpo1.jpg', imagen2: 'images/productos/pulpo2.jpg', imagen3: 'images/productos/pulpo3.jpg' },
+    { id: 5, titulo: "Soporte Celular/Tablet", precio: 500, cantidad: 0, categoria: "accesorios", stock: 0, imagen: 'images/productos/soportecelu1.jpg', imagen2: 'images/productos/soportecelu2.jpg', imagen3: 'images/productos/soportecelu3.jpg' },
+    { id: 6, titulo: "Darth Vader", precio: 450, cantidad: 0, categoria: "muñecos", stock: 12, imagen: 'images/productos/vader1.jpg', imagen2: 'images/productos/vader2.jpg', imagen3: 'images/productos/vader3.jpg' },
+    { id: 7, titulo: "Otro", precio: 450, cantidad: 0, categoria: "muñecos", stock: 0, imagen: '', imagen2: '', imagen3: '' },
+    { id: 8, titulo: "Otro", precio: 450, cantidad: 0, categoria: "muñecos", stock: 0, imagen: '', imagen2: '', imagen3: '' },
+];
 
 
 
@@ -24,8 +24,7 @@ const agregarAlCarrito = (idProducto) => {
     //actualizando el storage del carrito
     localStorage.setItem("carrito", JSON.stringify(carrito));
 
-    //actualizando el html
-    // document.getElementById("cantidad-prod").innerHTML = "$" + productoAgregado.precio * productoAgregado.cantidad;
+    //actualizando el html    
     document.getElementById("cantidad-prod").innerHTML = carrito.length;
     // Actualizar stock
     // Volver a generar las cards
@@ -47,12 +46,12 @@ const agregarAlCarrito = (idProducto) => {
 
 };
 
-fetch("/data.json")
-    .then((response) => response.json())
-    .then((data) => generarCards(data.productos));
+// fetch("./data.json")
+//     .then((response) => response.json())
+//     .then((data) => console.log(data.productos));
 
 
-//generarCards(productos);
+generarCards(productos);
 
 function generarCards(productosAMostrar) {
     let acumuladorDeCards = ``;
@@ -129,8 +128,6 @@ function generarCards(productosAMostrar) {
 
 }
 
-
-
 function mostrarCardsEnElHTML(cards) {
     document.getElementById("listado-productos").innerHTML = cards;
 };
@@ -165,11 +162,12 @@ function generarTablaCarrito(CarritoAMostrar) {
     let acumuladorDeTabla = ``;
     CarritoAMostrar.forEach((carrito) => {
         acumuladorDeTabla += ` <tr>
-        <th scope="row">${carrito.id}</th>
+        <td>  <img src="${carrito.imagen}" width=100 alt="imagen producto"></td>
         <td>${carrito.titulo}</td>
         <td>${carrito.precio}</td>
-        <td>${carrito.cantidad}</td>
-        <td>${carrito.precioT}</td>
+        <td>
+            <a href="#" class="borrar-producto bi bi-x-square-fill" data-id="${carrito.id}"></a>
+        </td>        
       </tr>  `;
     });
     mostrarTablaEnModal(acumuladorDeTabla);
@@ -182,11 +180,12 @@ function mostrarTablaEnModal(tablaCarrito) {
 
 
 
+
 function suscribirseAlNewsletter() {
     const email = document.getElementById("email").value;
     console.log(email);
     swal({
-        title: `${email} te suscrbiste correctamente`,
+        title: `${email} te suscribiste correctamente`,
         text: "MUCHAS GRACIAS!!",
         icon: "success",
         button: "Cerrar",
@@ -194,16 +193,6 @@ function suscribirseAlNewsletter() {
         .then((value) => { location.reload() });
 
 }
-
-/* var inicio = 1; //se inicializa una variable en 0
-
-function aumentar() { // se crean la funcion y se agrega al evento onclick en en la etiqueta button con id aumentar
-
-    var cantidad = document.getElementById('cantidad').value = ++inicio; //se obtiene el valor del input, y se incrementa en 1 el valor que tenga.
-
-    const valorDeCantidad1 = document.getElementById(`cantidad-${idProducto}`).value;
-    console.log(valorDeCantidad1);
-} */
 
 
 function buscarProducto() {
